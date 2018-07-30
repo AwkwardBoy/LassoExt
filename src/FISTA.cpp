@@ -2,14 +2,15 @@
 #include <vector>
 #include "Eigen/Dense"
 #include <iostream>
-// using namespace Rcpp;
+
+using namespace Rcpp;
 using Eigen::MatrixXd;
 using Eigen::MatrixXi;
 using Eigen::Map;
 
 void load(const int n, const int p, std::vector<int> &);
 void loadFromR(const int n, const int p);
-
+/*
 int main()
 {
     const int n = 3;
@@ -21,16 +22,18 @@ int main()
     }
   load(n, p, x);
 }
-
+*/
+/*
 void load(const int n, const int p, std::vector<int> &x) 
 {
     Map<MatrixXi> X(x.data(), n, p);
     std::cout << X*2<< std::endl;
 }
+ */
 
 // [[Rcpp::export]]
-void loadRdata(Rcpp::NumericMatrix &x)
+void loadRdata(NumericMatrix &x)
 {
-    Map<MatrixXi> X(Rcpp::as<Map<MatrixXi> >(x));
+    Map<MatrixXi> X(as<Map<MatrixXi> >(x));
     std::cout << X << std::endl;
 }
