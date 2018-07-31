@@ -1,4 +1,5 @@
 #include <Rcpp.h>
+// #include <Rinternals.h>
 #include <vector>
 #include "Eigen/Dense"
 #include <iostream>
@@ -8,8 +9,8 @@ using Eigen::MatrixXd;
 using Eigen::MatrixXi;
 using Eigen::Map;
 
-void load(const int n, const int p, std::vector<int> &);
-void loadFromR(const int n, const int p);
+// void load(const int n, const int p, std::vector<int> &);
+// void loadFromR(const int n, const int p);
 /*
 int main()
 {
@@ -31,9 +32,21 @@ void load(const int n, const int p, std::vector<int> &x)
 }
  */
 
-// [[Rcpp::export]]
-void loadRdata(NumericMatrix &x)
+/*
+MatrixXd loadRdata(Map<MatrixXd> &x)
 {
-    Map<MatrixXi> X(as<Map<MatrixXi> >(x));
-    std::cout << X << std::endl;
+    std::cout << x << std::endl;
+    return x.transpose();
+}
+*/
+
+
+extern "C" SEXP loadR(SEXP x, SEXP n, SEXP p){
+    // Map<MatrixXd> X(as<Map<MatrixXd> >(x));
+    Vector<traits::r_sexptype_traits<double>::rtype> vec(x);
+    int nc = as<int>(n);
+    int pc = as<int>(p);
+    Map<MatrixXd> X(vec.begin(), nc, pc);
+    NumericMatrix Xr(wrap(X));
+    return Xr;
 }

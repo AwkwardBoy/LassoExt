@@ -1,0 +1,3 @@
+#！ /bin/bash
+g++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include -I/Library/Frameworks/R.framework/Versions/3.3/Resources/library/Rcpp/include -fPIC  -Wall -mtune=core2 -g -O2 -c FISTA.cpp -o FIS∑TA.o
+g++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o FISTA.so FISTA.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
